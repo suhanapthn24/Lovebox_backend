@@ -28,30 +28,34 @@ def save_metadata(data):
 
 
 @router.get("/upload")
-async def get_uploaded_photos():
-    """Return a list of uploaded images with notes."""
+async def get_uploaded_photos(user: str = None):
+    """Return a list of uploaded images, optionally filtered by user."""
     photo_list = []
     metadata = load_metadata()
     for filename in os.listdir(UPLOAD_DIR):
         if filename.lower().endswith((".png", ".jpg", ".jpeg", ".gif")):
+            note = metadata.get(filename, {
+                "text": "",
+                "color": "black",
+                "sticker": "",
+                "user": ""
+            })
+            if user and note.get("user") != user:
+                continue
             photo_list.append({
                 "filename": filename,
                 "url": f"/uploads/{filename}",
-                "note": metadata.get(filename, {
-                    "text": "",
-                    "color": "black",
-                    "sticker": ""
-                })
+                "note": note
             })
     return photo_list
-
 
 @router.post("/upload/")
 async def upload_image(
     file: UploadFile = File(...),
     note: str = Form(""),
     color: str = Form("black"),
-    sticker: str = Form("")
+    sticker: str = Form(""),
+    username: str = Form(...)  # 👈 Required user field
 ):
     file_path = UPLOAD_DIR / file.filename
 
@@ -59,9 +63,9 @@ async def upload_image(
     with file_path.open("wb") as f:
         f.write(await file.read())
 
-    # Save metadata
     metadata = load_metadata()
     metadata[file.filename] = {
+        "user": username, 
         "text": note,
         "color": color,
         "sticker": sticker,
