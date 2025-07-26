@@ -1,11 +1,16 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 class CalendarNote(BaseModel):
-    date: str  # Format: YYYY-MM-DD
-    note: str
-    recurring: Optional[bool] = False  # If the note repeats yearly
+    date: str
+    title: str
+    text: str
+    recurring: Optional[bool] = False
+    shared_with: Optional[List[str]] = []  # 👈 NEW field
+
 
 class UpdateNote(BaseModel):
-    note: Optional[str] = None
+    title: Optional[str] = None
+    text: Optional[str] = None
     recurring: Optional[bool] = None
+    shared_with: Optional[List[str]] = None  # 👈 NEW field
