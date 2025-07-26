@@ -1,0 +1,17 @@
+{
+  "03-08": {
+    "date": "03-08",
+    "note": "Our anniversary",
+    "recurring": false
+  },
+  "2025-03-08": {
+    "date": "2025-03-08",
+    "note": "Our anniversary",
+    "recurring": false
+  },
+  "2025-07-25": {
+    "date": "2025-07-25",
+    "note": "The deployment",
+    "recurring": false
+  }
+}
