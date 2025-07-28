@@ -15,7 +15,8 @@ default_love_notes = [
     "You matter. Your memories matter. 💖📸",
     "Someone out there is grateful you exist. 💌",
     "You’re doing better than you think. 💞",
-    "The world is better with your love in it. 🌷"
+    "The world is better with your love in it. 🌷",
+    "You make my day better 💕"
 ]
 
 def load_notes():
