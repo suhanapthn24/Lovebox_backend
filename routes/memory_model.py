@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from memory_model import Memory
+from model.memory_model import Memory
 from typing import List
 import json
 import os
